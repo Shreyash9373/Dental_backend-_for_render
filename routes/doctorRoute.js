@@ -1,6 +1,6 @@
 import express from "express";
-import upload from "../config/multer.js";
-import { addEvent, addBlogs } from "../controllers/doctorController.js";
+import { upload } from "../config/multer.js";
+// import { addEvent, addBlogs } from "../controllers/doctorController.js";
 import checkDoctor from "../middlewares/checkDoc.middleware.js";
 import {
   addAccount,
@@ -13,6 +13,8 @@ import {
   getDoctorDetails,
   getAllReceptionist,
   deleteReceptionist,
+  addEvent,
+  addBlogs,
 } from "../controllers/doctor.controller.js";
 import { AsyncErrorHandler } from "../utils/AsyncErrorHandler.js";
 import { verifyDoctor } from "../middlewares/auth.middleware.js";

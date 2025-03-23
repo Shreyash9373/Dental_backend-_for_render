@@ -15,7 +15,18 @@ const addEvent = async (req, res) => {
     }
 
     // Upload the image to Cloudinary
-    const imageUrl = req.file.path;
+    let imageUrl = "";
+    if (req.file) {
+      console.log(req.file.path);
+      const uploadResponse = await uploadCloudinary(req.file.path, {
+        folder: "categories",
+      });
+      if (!uploadResponse) {
+        console.log(uploadResponse);
+        return res.status(500).json({ message: "Image upload failed" });
+      }
+      imageUrl = uploadResponse.secure_url; // Get image URL from Cloudinary response
+    }
 
     // Create a new event with the uploaded image URL
     const newEvent = {
@@ -24,7 +35,7 @@ const addEvent = async (req, res) => {
       time,
       location,
       description,
-      image: imageUrl, // Cloudinary's secure URL
+      image: imageUrl || "", // Cloudinary's secure URL
     };
 
     // Save the event to the database
@@ -65,13 +76,24 @@ const addBlogs = async (req, res) => {
     }
 
     // Upload the image to Cloudinary
-    const imageUrl = req.file.path;
+    let imageUrl = "";
+    if (req.file) {
+      console.log(req.file.path);
+      const uploadResponse = await uploadCloudinary(req.file.path, {
+        folder: "categories",
+      });
+      if (!uploadResponse) {
+        console.log(uploadResponse);
+        return res.status(500).json({ message: "Image upload failed" });
+      }
+      imageUrl = uploadResponse.secure_url; // Get image URL from Cloudinary response
+    }
 
     // Create a new event with the uploaded image URL
     const newBlog = {
       title,
       description,
-      image: imageUrl, // Cloudinary's secure URL
+      image: imageUrl || "", // Cloudinary's secure URL
     };
 
     // Save the event to the database
